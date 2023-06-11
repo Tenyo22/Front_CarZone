@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import Navbar from "./Navbar";
 // import BrandModel from "../../../api/models/BrandModel";
 
-const URI = "http://localhost:9000"
+const URI = "https://api-carzone.onrender.com"
 
 const CompCreateCar = () => {
     const opcionesBrands = useMemo(() => [

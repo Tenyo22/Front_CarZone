@@ -6,10 +6,11 @@ import Swal from 'sweetalert2';
 import Navbar from './Navbar';
 
 // Referencia a endpoint hecho con node y express
-const URI = 'http://localhost:9000';
+const URI = process.env.REACT_APP_API_URL;
 
 const CompShowCars = () => {
     const [cars, setCars] = useState([]);
+    // console.log(URI);
     useEffect(() => {
         getCars()
     }, [])
