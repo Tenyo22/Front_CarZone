@@ -3,9 +3,8 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import Navbar from "./Navbar";
-// import BrandModel from "../../../api/models/BrandModel";
 
-const URI = "https://api-carzone.onrender.com"
+const URI = process.env.REACT_APP_API_URL;
 
 const CompCreateCar = () => {
     const opcionesBrands = useMemo(() => [
@@ -22,7 +21,6 @@ const CompCreateCar = () => {
     ], []);
 
     const [id, setId] = useState('')
-    // const [marca, setMarca] = useState('')
     const [modelo, setModelo] = useState('')
     const [year, setYear] = useState('')
     const [km, setKm] = useState('')
@@ -31,7 +29,6 @@ const CompCreateCar = () => {
     const [disabled, setDisabled] = useState(false)
     const { id2 } = useParams();
     const [title, setTitle] = useState('')
-    // const [fecha_reg, setFechaReg] = useState(new Date());
     const navigate = useNavigate();
 
     const getABrand = useCallback(async () => {
@@ -47,14 +44,8 @@ const CompCreateCar = () => {
     }, [id2, opcionesBrands]);
 
     const getBrands = async () => {
-        // try {
         const res = (await axios.get(`${URI}/brands`)).data;
-        // console.log(res);
         setBrands(res);
-        // console.log(brands);
-        // } catch (error) {
-        //     console.log(error);
-        // }
     }
 
     useEffect(() => {
@@ -72,22 +63,13 @@ const CompCreateCar = () => {
     }, [id2, getABrand]);
 
     const handleBrandChange = (e) => {
-        // console.log(e.target);
         setBrands(opcionesBrands.find(a => a.value === e.target.value));
-        // console.log(brands);
-        // console.log(brands);
     }
 
     // Procedimiento guardar
     const store = async (e) => {
         e.preventDefault();
-        // setFechaReg(new Date());
 
-        // const fecha = formatDateTime(fecha_reg)
-        // console.log(fecha);
-        // // setFechaReg(fecha);
-
-        // console.log({ _id: id, brand: brands.label, model: modelo, year: year, km: km, price: precio });
         // console.log(`${URI}/cars/${id2}`, { brand: brands.label, model: modelo, year: year, km: km, price: precio })
         if (brands.label === '-- Seleccione --') {
             Swal.fire('Por favor, seleccione una Marca valida!');
@@ -134,8 +116,6 @@ const CompCreateCar = () => {
                                             <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                                                 value={id} onChange={(e) => setId(e.target.value)} disabled={disabled} required></input>
                                         </div>
-                                        {/* <label className="form-label">NIV:</label>
-                                    <input value={id} type="text" className="form-control" onChange={(e) => setId(e.target.value)} /> */}
                                     </div>
 
                                     <div className="col-md-6">
@@ -148,15 +128,9 @@ const CompCreateCar = () => {
                                                     </option>
                                                 ))}
                                             </select>
-                                            {/* <span className="form-label">Marca:</span> */}
-                                            {/* <input value={marca} type="text" className="form-control" onChange={(e) => setMarca(e.target.value)} /> */}
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="mb-3">
-                                    <label className="form-label">Marca:</label>
-                                    <input value={marca} type="text" className="form-control" onChange={(e) => setMarca(e.target.value)} />
-                                </div> */}
 
                                 <div className="row">
                                     <div className='col-md-6'>
@@ -167,11 +141,6 @@ const CompCreateCar = () => {
                                         </div>
                                     </div>
 
-                                    {/* <div className="mb-3">
-                                    <label className="form-label">Modelo</label>
-                                    <input value={modelo} type="text" className="form-control" onChange={(e) => setModelo(e.target.value)} />
-                                </div> */}
-
                                     <div className='col-md-6'>
                                         <div className="input-group mb-3">
                                             <span className="input-group-text" id="inputGroup-sizing-default">Año:</span>
@@ -179,11 +148,6 @@ const CompCreateCar = () => {
                                                 value={year} onChange={(e) => setYear(e.target.value)} required />
                                         </div>
                                     </div>
-
-                                    {/* <div className="mb-3">
-                                        <label className="form-label">Año:</label>
-                                        <input value={year} type="number" className="form-control" onChange={(e) => setYear(e.target.value)} />
-                                    </div> */}
                                 </div>
 
                                 <div className="row">
@@ -194,10 +158,6 @@ const CompCreateCar = () => {
                                                 value={km} onChange={(e) => setKm(e.target.value)} required />
                                         </div>
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label className="form-label">Kilometraje</label>
-                                        <input value={km} type="text" className="form-control" onChange={(e) => setKm(e.target.value)} />
-                                    </div> */}
 
                                     <div className='col-md-6'>
                                         <div className="input-group mb-3">
@@ -206,15 +166,10 @@ const CompCreateCar = () => {
                                                 value={precio} onChange={(e) => setPrecio(e.target.value)} required />
                                         </div>
                                     </div>
-                                    {/* <div className="mb-3">
-                                        <label className="form-label">Precio</label>
-                                        <input value={precio} type="number" className="form-control" onChange={(e) => setPrecio(e.target.value)} />
-                                    </div> */}
                                 </div>
 
                                 <div className="text-center">
                                     <div className="d-flex justify-content-evenly">
-                                        {/* <button type="submit" className='btn btn-danger col-4' onClick={clean(objSetHooks, opcionesMarca)}>Cancelar</button> */}
                                         <button type="submit" className='btn btn-primary col-4'>Save</button>
                                     </div>
                                 </div>
